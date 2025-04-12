@@ -1,1 +1,3 @@
-# semester-project-2
+# LuxeLot
+
+A semester project made by Daniel Ekeberg
