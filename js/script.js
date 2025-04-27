@@ -1,8 +1,17 @@
 import { apiUrl, apiKey, auth } from './config.js';
 
+function isLoggedIn() {
+    const userLoggedIn = localStorage.getItem('isLoggedIn');
+    if(!userLoggedIn) {
+        window.location.href = './login'
+    }
+}
+
+isLoggedIn();
+
 async function fetchAll() {
     try {
-        const response = await fetch(`${apiUrl}/auction/listings?_active=true`, {
+        const response = await fetch(`${apiUrl}/auction/listings?&_tag=LuxeLot&_active=true`, {
             headers: {
                 'Authorization': `Bearer ${auth}`,
             }
@@ -12,34 +21,21 @@ async function fetchAll() {
         console.log(item);
 
         item.forEach(item => {
-            const endTime = new Date(item.endsAt);
-            const now = new Date();
-
-            const diffsInMs = endTime - now;
-
-            const totalSeconds = Math.floor(diffsInMs / 1000);
-            const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-            const minutes = String(Math.floor(totalSeconds / 3600) / 60).padStart(2, '0');
-            const seconds = String(totalSeconds % 60).padStart(2, '0');
-
-
             const d = document.createElement('a');
             d.className = 'item';
             d.href = `./listing/?i=${item.id}`;
             d.innerHTML = `
-            <div class="item-img">
-                <img src="${item.media[0].url}">
-                <div class="time-left">
-                    <p>${hours}:${minutes}:${seconds}</p>
-                </div>
-            </div>
-            <div class="item-title">
-                <h3>${item.title}</h3>
-                <h4>CB: 300</h4>
+            <div class="card">
+                 <img src="${item.media[0].url}">
+                 <div class="card-title">
+                    <h3>${item.title}</h3>
+                    <p>Bids: 29</p>
+                 </div>
             </div>
             `;
 
             document.getElementById('listings').appendChild(d);
+            console.log(response);
         })
 
     } catch(err) {
@@ -48,6 +44,8 @@ async function fetchAll() {
 }
 
 fetchAll();
+
+document.getElementById('rolex').addEventListener('click', fetchAll);
 
 function hamburger() {
     const d = document.createElement('div');
@@ -60,4 +58,16 @@ function hamburger() {
     document.getElementById('hamburger').appendChild(d);
 }
 
-document.getElementById('hamburger').addEventListener('click', hamburger);
+// document.getElementById('hamburger').addEventListener('click', hamburger);
+
+const tempUsername = localStorage.getItem('username');
+
+function getUsername() {
+    document.getElementById('username').textContent = tempUsername;
+}
+
+getUsername();
+
+document.getElementById('username').addEventListener('click', () => {
+    window.location.href = `./profile/?q=${tempUsername}`;
+});
