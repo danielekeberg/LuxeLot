@@ -2,13 +2,13 @@ import { auth, apiKey, apiUrl } from './config.js';
 
 async function createListing() {
     const title = 'Celestique Noir';
-    const tags = 'LuxeLot';
+    const tags = ['LuxeLot', 'Rolex'];
     const date = document.getElementById('date').value;
     const url = 'https://globalboutique.com/wp-content/uploads/2023/05/featured-gold-watches-800x600.jpg';
     const endsAt = new Date(date);
     const create = { 
         title: title,
-        tags: [tags],
+        tags: tags,
         media: [
             {
                 url: url,
