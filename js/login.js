@@ -5,10 +5,6 @@ async function login() {
         const email = document.getElementById('emailInput').value;
         const password = document.getElementById('passwordInput').value;
 
-        // const email = 'daneke75160@stud.noroff.no';
-        // const password = 'Leinaddaniel1!';
-
-
         const response = await fetch(`${apiUrl}/auth/login`, {
             method: 'POST',
             headers: {
