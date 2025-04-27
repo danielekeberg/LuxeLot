@@ -249,6 +249,40 @@ main {
     width: 1200px;
 }
 
+.profile-container .profile-header {
+    position: relative;
+}
+
+.profile-container .profile-header #banner {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #212121;
+}
+
+.profile-container .profile-picture #profilePicture {
+    width: 200px;
+    border: 1px solid #212121;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.profile-container .profile-main {
+    width: 60%;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.profile-container .profile-stats {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 #profileInc {
     text-align: center;
 }
