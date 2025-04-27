@@ -5,34 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <script type="module" src="./js/script.js" defer></script>
-    <script type="module" src="./js/credits.js" defer></script>
+    <!-- <script type="module" src="./js/credits.js" defer></script> -->
     <title>Document</title>
 </head>
 <body>
     <header>
         <div class="header">
-        <div class="searchBar">
-            <input type="text" id="searchInput" placeholder="Search..">
-            <img src="./assets/search.svg">
-        </div>
-        <div class="logo">
-            <h1>LUXE<span>LOT</span></h1>
-        </div>
-        <div class="nav">
-            <img src="./assets/coin.svg">
-            <p id="credits">0</p>
-            <p id="hamburger">&#9776;</p>
-        </div>
+            <div class="logo">
+                <h1>LuxeLot</h1>
+            </div>
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <img src="./assets/search.svg">
+            </div>
+            <div class="create">
+                <img src="./assets/create.svg">
+            </div>
+            <div class="user">
+                <div class="credits">
+                    <img src="./assets/coin.svg">
+                    <p id="credits">0</p>
+                </div>
+                <p id="username"></p>
+            </div>
         </div>
     </header>
 
     <main>
         <div class="container">
-            <div class="top">
-                <h3>LISTINGS</h3>
-                <div class="bar"></div>
+            <div class="category">
+                <h2>Brands</h2>
+                <div class="ctg">
+                    <input type="checkbox" id="rolex">
+                    <label for="rolex">Rolex</label>
+                </div>
+                <div class="ctg">
+                    <input type="checkbox" id="omega">
+                    <label for="omega">Omega</label>
+                </div>
+                <div class="ctg">
+                    <input type="checkbox" id="cartier">
+                    <label for="cartier">Cartier</label>
+                </div>
+                <div class="ctg">
+                    <input type="checkbox" id="tudor">
+                    <label for="tudor">Tudor</label>
+                </div>
+                <div class="ctg">
+                    <input type="checkbox" id="seiko">
+                    <label for="seiko">Seiko</label>
+                </div>
+                <div class="ctg">
+                    <input type="checkbox" id="breitling">
+                    <label for="breitling">Breitling</label>
+                </div>
+                <div class="ctg">
+                    <input type="checkbox" id="panerai">
+                    <label for="panerai">Panerai</label>
+                </div>
             </div>
-            <div id="listings">
+            <div class="listings" id="listings">
+                <div class="card">
+                     <img src="./assets/placeholder.webp">
+                     <div class="card-title">
+                        <h3>Rolex 1903</h3>
+                        <p>Bids: 29</p>
+                     </div>
+                </div>
+                <div class="card">
+                     <img src="./assets/placeholder.webp">
+                     <div class="card-title">
+                        <h3>Rolex 1903</h3>
+                        <p>Bids: 29</p>
+                     </div>
+                </div>
+                <div class="card">
+                     <img src="./assets/placeholder.webp">
+                     <div class="card-title">
+                        <h3>Rolex 1903</h3>
+                        <p>Bids: 29</p>
+                     </div>
+                </div>
+                <div class="card">
+                     <img src="./assets/placeholder.webp">
+                     <div class="card-title">
+                        <h3>Rolex 1903</h3>
+                        <p>Bids: 29</p>
+                     </div>
+                </div>
+                <div class="card">
+                     <img src="./assets/placeholder.webp">
+                     <div class="card-title">
+                        <h3>Rolex 1903</h3>
+                        <p>Bids: 29</p>
+                     </div>
+                </div>
             </div>
         </div>
     </main>
