@@ -4,37 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
-    <script type="module" src="../js/login.js" defer></script>
-    <title>LUXELOT</title>
+    <script type="module" src="../js/temp.js" defer></script>
+    <title>Document</title>
 </head>
 <body>
-    <header>
-        <div class="header login-header">
-            <div class="logo">
-                <h1>LUXE<span>LOT</span></h1>
-            </div>
-        </div>
-    </header>
-
     <main>
-        <div class="container">
-            <div class="login">
-                <h1>Login</h1>
-                <div class="login-form">
-                    <label for="email">Email</label>
-                    <input type="text" id="emailInput" placeholder="Email">
-                </div>
-                <div class="login-form">
-                    <label for="password">Password</label>
-                    <input type="password" id="passwordInput" placeholder="Password">
-                </div>
-                <div class="login-btns">
-                    <button id="login">Login</button>
-                    <a href="../register/">Sign up</a>
-                </div>
+        <div class="login-container">
+            <img src="../assets/auction-svgrepo-com.svg">
+            <div class="login-form">
+                <input type="text" id="email" placeholder="E-mail address">
+                <input type="password" id="password" placeholder="Password">
             </div>
-
-            <button id="forceLogin">LOGIN NU</button>
+            <div class="error">
+                <p id="error">Skriv inn et brukernavn</p>
+            </div>
+            <button id="loginBtn">Sign in</button>
+            <div class="sign-up">
+                <p>Don't have an account?</p>
+                <a href="../register/">Sign up</a>
+            </div>
         </div>
     </main>
 </body>
