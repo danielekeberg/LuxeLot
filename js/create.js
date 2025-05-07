@@ -1,20 +1,29 @@
 import { auth, apiKey, apiUrl } from './config.js';
 
 async function createListing() {
-    const title = 'Celestique Noir';
-    const tags = ['LuxeLot', 'Rolex'];
-    const date = document.getElementById('date').value;
-    const url = 'https://globalboutique.com/wp-content/uploads/2023/05/featured-gold-watches-800x600.jpg';
-    const endsAt = new Date(date);
+    const now = new Date();
+    const date = new Date(now.getTime() + 10 * 60000).toISOString();
+
+    // Date er satt til 10 minutter fra bruker trykker på knappen. Endre denne til 1 dag før innlevering.
+    // Dette er for å teste ting uten å spamme ned alle listings
+
+
+    const title = document.getElementById('itemTitle').value;
+    const tags = ['Test'];
+    const url = document.getElementById('itemImg').value;
+    const desc = document.getElementById('itemDesc').value;
+    // const endsAt = new Date(date);
     const create = { 
         title: title,
+        description: desc,
         tags: tags,
         media: [
             {
                 url: url,
+                alt: `Image for ${title}`
             },
         ],
-        endsAt: endsAt.toISOString(),
+        endsAt: date,
      }
     try {
         const response = await fetch(`${apiUrl}/auction/listings`, {
@@ -32,7 +41,6 @@ async function createListing() {
             console.log(data);
             window.location.href = `../listing/?i=${data.data.id}`
         } else {
-            console.log(endsAt.toISOString());
             console.error(create);
         }
     } catch(error) {
@@ -40,4 +48,20 @@ async function createListing() {
     }
 }
 
-document.getElementById('createList').addEventListener('click', createListing);
+document.getElementById('createListing').addEventListener('click', createListing);
+
+const input = document.getElementById('itemImg');
+const preview = document.getElementById('imagePlaceholder');
+const text = document.getElementById('placeholderText');
+
+input.addEventListener('input', () => {
+    const url = input.value.trim();
+
+    if(url) {
+        preview.src = url;
+        text.textContent = '';
+    } else {
+        preview.src = '';
+        text.textContent = 'Preview';
+    }
+});
