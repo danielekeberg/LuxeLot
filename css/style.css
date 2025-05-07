@@ -20,6 +20,11 @@ header {
     width: 1200px;
 }
 
+.header .logo h1 a {
+    text-decoration: none;
+    color: #f4f3f2;
+}
+
 .header .user {
     display: flex;
     align-items: center;
@@ -53,6 +58,11 @@ header img {
 .header .user #username {
     cursor: pointer;
     font-weight: 600;
+}
+
+.header .user #username a {
+    text-decoration: none;
+    color: #f4f3f2;
 }
 
 .header input {
@@ -144,18 +154,31 @@ main {
 .card img {
     height: 200px;
     width: 250px;
+    margin: 0 auto;
+    display: flex;
+    border: 1px solid #bdbdbd;
+}
+
+.card h3 {
+    width: 80%;
 }
 
 .card-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 20px;
 }
 
 .listings {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 70px;
+}
+
+.listings a {
+    text-decoration: none;
+    color: #272221;
 }
 
 .login-container {
@@ -168,6 +191,10 @@ main {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.password {
+    width: 100%;
 }
 
 .login-container img {
@@ -236,6 +263,27 @@ main {
     cursor: pointer;
 }
 
+.error {
+    border-radius: 10px;
+    /* background: #473E3C; */
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    transition: all 0.3s ease;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid #bdbdbd; */
+}
+
+.error .errorMsg {
+    padding: 5px 20px;
+    background: #473e3c;
+    border: 1px solid #bdbdbd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin: 5px;
+    color: #f4f3f2;
+}
+
 .login-container .error p {
     opacity: 0;
     color: #f4f3f2;
@@ -269,12 +317,18 @@ main {
 }
 
 .profile-container .profile-main {
-    width: 60%;
+    /* width: 60%; */
+    /* display: flex; */
+    margin: 0 10px 0 230px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-container .test {
     display: flex;
     margin: 0 auto;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .profile-container .profile-stats {
@@ -285,4 +339,143 @@ main {
 
 #profileInc {
     text-align: center;
+}
+
+#logout {
+    cursor: pointer;
+}
+
+#listed {
+    display: flex;
+    gap: 100px;
+}
+
+#listed img {
+    height: 400px;
+    width: 400px;
+    overflow: none;
+    object-fit: cover;
+    border: 1px solid #bdbdbd;
+}
+
+.loading {
+    position: absolute;
+    width: 100vh;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    font-size: 100;
+    transform: translate(-50%, -50%);
+}
+
+.loading h1 {
+    text-align: center;
+}
+
+.en {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.tre {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.tre p {
+    width: 600px;
+}
+
+.bid {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.bid input,
+.bid button {
+    padding: 15px;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+}
+
+.bid input {
+    width: 100%;
+}
+
+.bid input:focus {
+    outline: none;
+}
+
+.bid button {
+    width: 30%;
+    color: #f4f3f2;
+    font-weight: 600;
+    background: #473E3C;
+    cursor: pointer;
+}
+
+.bid button:hover {
+    background: #584e4b;
+}
+
+.create-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 50px;
+}
+
+.create-container .image {
+    position: relative;
+    height: 250px;
+    width: 250px;
+    background: #e3e3e3;
+    border: 1px solid #bdbdbd;
+}
+
+.create-container .image img {
+    height: 250px;
+}
+
+.create-container #placeholderText {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    color: #adadad;
+}
+
+.create-container .create-field {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.create-container .create-field input {
+    padding: 10px;
+    width: 400px;
+}
+
+.create-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.create-btn button {
+    padding: 10px 20px;
+    background: #473E3C;
+    color: #f4f3f2;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 1px solid #bdbdbd;
+    cursor: pointer;
+}
+
+.create-btn button:hover {
+    background: #584e4b;
 }
