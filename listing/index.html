@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="../js/script.js" defer></script>
     <script type="module" src="../js/listed.js" defer></script>
     <script type="module" src="../js/credits.js" defer></script>
     <title>Document</title>
@@ -11,25 +12,52 @@
 <body>
     <header>
         <div class="header">
-        <div class="searchBar">
-            <input type="text" id="searchInput" placeholder="Search..">
-            <img src="../assets/search.svg">
-        </div>
-        <div class="logo">
-            <h1>LUXE<span>LOT</span></h1>
-        </div>
-        <div class="nav">
-            <img src="../assets/coin.svg">
-            <p id="credits">0</p>
-            <p id="hamburger">&#9776;</p>
-        </div>
+            <div class="logo">
+                <h1>
+                    <a href="../">LuxeLot</a>
+                </h1>
+            </div>
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <img src="../assets/search.svg">
+            </div>
+            <div class="create">
+                <img src="../assets/create.svg">
+            </div>
+            <div class="user">
+                <div class="credits">
+                    <img src="../assets/coin.svg">
+                    <p id="credits">0</p>
+                </div>
+                <p id="username"></p>
+                <img id="logout" src="../assets/logout.svg">
+            </div>
         </div>
     </header>
 
     <main>
         <div class="container">
             <div id="listed">
-                <h1>Failed to fetch listing. Try again</h1>
+                <img id="itemImage" src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png">
+                <div class="en">
+                    <div class="to">
+                        <h1 id="title">Kul klokke!</h1>
+                        <p><strong>Current bid: <span id="currentBid">2344</strong></p>
+                        <p><strong>Current bids: <span id="currentBids">0</span></strong></p>
+                        <p><strong>Ends: <span id="endsAt"></span></strong></p>
+
+                    </div>
+                    <div class="tre">
+                        <p id="desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, velit tempora! Adipisci obcaecati reprehenderit dicta at iure magnam totam nihil commodi, asperiores, aperiam cumque blanditiis nisi velit possimus dolor iusto!</p>
+                        <div class="bid">
+                            <input type="number" placeholder="Your bid" id="bidInput">
+                            <button id="bidSubmit">BID</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="loading">
+                    <h1>LOADING</h1>
+                </div> -->
             </div>
         </div>
     </main>
