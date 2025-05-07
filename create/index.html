@@ -11,28 +11,46 @@
 <body>
     <header>
         <div class="header">
-        <div class="searchBar">
-            <input type="text" id="searchInput" placeholder="Search..">
-            <img src="../assets/search.svg">
-        </div>
-        <div class="logo">
-            <h1>LUXE<span>LOT</span></h1>
-        </div>
-        <div class="nav">
-            <img src="../assets/coin.svg">
-            <p id="credits">0</p>
-            <p id="hamburger">&#9776;</p>
-        </div>
+            <div class="logo">
+                <h1>
+                    <a href="../">LuxeLot</a>
+                </h1>
+            </div>
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <img src="../assets/search.svg">
+            </div>
+            <div class="create">
+                <img src="../assets/create.svg">
+            </div>
+            <div class="user">
+                <div class="credits">
+                    <img src="../assets/coin.svg">
+                    <p id="credits">0</p>
+                </div>
+                <p id="username"></p>
+                <img id="logout" src="../assets/logout.svg">
+            </div>
         </div>
     </header>
 
     <main>
         <div class="container">
-            <input type="text" id="title" placeholder="title">
-            <input type="datetime-local" id="date">
+            <div class="create-container">
+                <div class="image">
+                    <img src="" id="imagePlaceholder">
+                    <h3 id="placeholderText">Preview</h3>
+                </div>
+                <div class="create-field">
+                    <input type="text" placeholder="Title" id="itemTitle">
+                    <input type="text" placeholder="Description" id="itemDesc">
+                    <input type="text" placeholder="Image URL" id="itemImg">
+                    <div class="create-btn">
+                        <button id="createListing">Create</button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button id="createList">ForceCreate</button>
     </main>
 </body>
 </html>
