@@ -1,13 +1,9 @@
 import { apiKey, apiUrl, authToken } from './config.js';
 
 async function register() {
-    // const name = document.getElementById('usernameInput').value;
-    // const email = document.getElementById('emailInput').value;
-    // const password = document.getElementById('passwordInput').value;
-
-    const name = '8april';
-    const email = '8april@stud.noroff.no';
-    const password = '8aprilno';
+    const name = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
     try {
         const response = await fetch(`${apiUrl}/auth/register`, {
             method: 'POST',
@@ -19,16 +15,33 @@ async function register() {
             body: JSON.stringify({ name, email, password })
         });
         const data = await response.json();
-        if(response.ok) {
-            alert('Account successfully registered');
-            window.location.href = '../login'
+        const error = data.errors;
+        if(!response.ok) {
+            if(document.querySelector('.errorMsg')) {
+                console.log('Ikke spam');
+                return;
+            };
+            document.querySelector('.error').style.opacity = 1;
+            error.forEach(errorMsg => {
+                console.log(errorMsg.message);
+                const d = document.createElement('div');
+                d.className = 'errorMsg';
+                d.innerHTML = `${errorMsg.message}`;
+                document.querySelector('.error').appendChild(d);
+                setTimeout(() => {
+                    document.querySelector('.error').style.opacity = 0;
+                    setTimeout(() => {
+                        document.querySelector('.error').removeChild(d);
+                    }, 300);
+                }, 3000);
+            });
+            return;
         } else {
-            console.log('nai');
-            throw new Error(data.message);
+            window.location.href = '../login/';
         }
     } catch(error) {
         console.error(error);
     }
 }
 
-document.getElementById('register').addEventListener('click', register);
+document.getElementById('registerBtn').addEventListener('click', register);
