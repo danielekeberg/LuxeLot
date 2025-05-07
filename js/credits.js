@@ -10,7 +10,6 @@ async function fetchCredits() {
             }
         });
         const data = await response.json();
-        console.log(`${data.data.name} has ${data.data.credits} credits!`);
         document.getElementById('credits').textContent = data.data.credits;
     } catch(err) {
         console.error(err);
