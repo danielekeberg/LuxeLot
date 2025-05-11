@@ -4,28 +4,23 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get('i');
 
 async function fetchListing() {
-    const loading = document.createElement('div');
-    loading.className = 'loading';
-    loading.innerHTML = `<h1>LOADING</h1>`
-    document.body.appendChild(loading);
     try {
         const response = await fetch(`${apiUrl}/auction/listings/${id}?_bids=true&_seller=true`, {
             headers: {
                 'Authorization': `Bearer ${auth}`,
             }
         });
+
+        
+
         const data = await response.json();
+        const errors = data.errors;
+        if(errors) {
+            console.log('erroooor ');
+            return;
+        }
         console.log(data);
         const bidLength = data.data.bids.length;
-        // document.getElementById('listed').innerHTML = `
-        // <img src="${data.data.media[0].url};">
-        // <div class="">
-        //     <h1>${data.data.title}</h1>
-        //     <p>Current bids: ${data.data._count.bids}</p>
-        //     <p>${data.data.description ? data.data.description : 'This item does not have a description.'}</p>
-        //     <p>Current bid: <span id="currentBid"></span></p>
-        // </div>
-        // `;
 
         const ending = data.data.endsAt;
         const date = new Date(ending)
@@ -36,33 +31,38 @@ async function fetchListing() {
         document.getElementById('itemImage').src = data.data.media[0].url;
         document.getElementById('endsAt').textContent = date.toLocaleString();
 
-        if(!data.data.bids[bidLength-1]
-
-        ) {
+        if(!data.data.bids[bidLength-1]) {
             console.log(data.data.bids)
             console.log('Ingen bids')
             document.getElementById('currentBid').textContent = 'No bids';
 
         } else {
-            console.log(data.data.bids)
-            console.log('bids')
+            console.log(data.data.bids[bidLength-1])
+            console.log(bidLength);
             document.getElementById('currentBid').textContent = data.data.bids[bidLength-1].amount;
         }
         
-        // document.getElementById('currentBid').textContent = currentBids;
+        document.getElementById('currentBids').textContent = bidLength;
         moreItems(data.data.seller.name)
-        document.body.removeChild(loading);
+
+        const bidInput = document.getElementById('bidInput').value;
+        console.log(bidInput)
+        document.getElementById('bidSubmit').addEventListener('click', () => {
+            bid(data.data.id);
+            document.getElementById('currentBid').textContent = data.data.bids[bidLength-1].amount;
+        })
+        document.getElementById('bidInput').addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') {
+                bid(data.data.id);
+            }
+        })
+        
     } catch(err) {
         console.error(err);
     }
 }
 
 fetchListing();
-// document.body.addEventListener('keydown', (e) => {
-//     if(e.key === 'Enter') {
-//         fetchListing();
-//     }
-// })
 
 async function moreItems(name) {
     try {
@@ -116,3 +116,108 @@ async function timeLeft() {
 
 // timeLeft();
 // setInterval(timeLeft, 1000)
+
+async function bid(id) {
+    const bidInput = Number(document.getElementById('bidInput').value);
+    try {
+        const response = await fetch(`${apiUrl}/auction/listings/${id}/bids`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth}`,
+                'X-Noroff-API-Key': `${apiKey}`,
+            },
+            body: JSON.stringify({ amount: bidInput }),
+        });
+        console.log(bidInput);
+        const data = await response.json();
+        const error = data.errors;
+        if(!response.ok) {
+            error.forEach(error => {
+                // console.log(error);
+                document.getElementById('error').style.opacity = 1;
+                document.getElementById('error').textContent = error.message;
+                setTimeout(() => {
+                    document.getElementById('error').style.opacity = 0;
+                }, 3000)
+            })
+            console.log(error);
+        } else {
+            console.log('Your bid of ' + bidInput + ' credits were accepted!');
+            document.getElementById('bidInput').textContent = '';
+            updateBalance();
+            updateBids();
+        }
+
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function updateBids() {
+    try {
+        const response = await fetch(`${apiUrl}/auction/listings/${id}?_bids=true`, {
+            headers: {
+                'Authorization': `Bearer ${auth}`,
+            }
+        })
+        if(!response.ok) {
+            throw new Error('Noe har skjedd: ' + error)
+        }
+        const data = await response.json();
+        const bidLength = data.data.bids.length;
+        console.log(data.data.bids[(bidLength-1)].amount);
+        document.getElementById('currentBid').textContent = data.data.bids[(bidLength-1)].amount;
+        document.getElementById('currentBids').textContent = bidLength;
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+async function updateBalance() {
+    const getUsername = localStorage.getItem('username');
+    try {
+        const response = await fetch(`${apiUrl}/auction/profiles/${getUsername}`, {
+            headers: {
+                'Authorization': `Bearer ${auth}`,
+                'X-Noroff-API-Key': `${apiKey}`
+            }
+        })
+        if(!response.ok) {
+            throw new Error(`Error fetching ${getUsername}s balace! ` + error)
+        }
+
+        const data = await response.json();
+        document.getElementById('credits').textContent = data.data.credits;
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+async function deleteListing() {
+    try {
+        const response = await fetch(`${apiUrl}/auction/listings/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${auth}`,
+                'X-Noroff-API-Key': `${apiKey}`,
+            }
+        })
+        const data = await response.json();
+        if(!response.ok) {
+            console.log('Error deleting list');
+            console.error(data);
+        } else {
+            console.log('Success!');
+        }
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+document.body.addEventListener('keypress', (e) => {
+    if(e.key === 'd') {
+        deleteListing();
+    }
+})
