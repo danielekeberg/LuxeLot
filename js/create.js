@@ -2,9 +2,9 @@ import { auth, apiKey, apiUrl } from './config.js';
 
 async function createListing() {
     const now = new Date();
-    const date = new Date(now.getTime() + 10 * 60000).toISOString();
+    const date = new Date(now.getTime() + 5 * 60000).toISOString();
 
-    // Date er satt til 10 minutter fra bruker trykker på knappen. Endre denne til 1 dag før innlevering.
+    // Date er satt til 5 minutter fra bruker trykker på knappen. Endre denne til 1 dag før innlevering.
     // Dette er for å teste ting uten å spamme ned alle listings
 
 
