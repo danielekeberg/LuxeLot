@@ -22,7 +22,9 @@
                 <img src="../assets/search.svg">
             </div>
             <div class="create">
-                <img src="../assets/create.svg">
+                <a href="../create/" class="create">
+                    <img src="../assets/create.svg">
+                </a>
             </div>
             <div class="user">
                 <div class="credits">
@@ -42,7 +44,10 @@
                 <div class="en">
                     <div class="to">
                         <h1 id="title">Kul klokke!</h1>
-                        <p><strong>Current bid: <span id="currentBid">2344</strong></p>
+                        <div class="currentBid">
+                            <img src="../assets/coin.svg">
+                            <p id="currentBid">0</p>
+                        </div>
                         <p><strong>Current bids: <span id="currentBids">0</span></strong></p>
                         <p><strong>Ends: <span id="endsAt"></span></strong></p>
 
@@ -53,6 +58,7 @@
                             <input type="number" placeholder="Your bid" id="bidInput">
                             <button id="bidSubmit">BID</button>
                         </div>
+                        <p id="error"></p>
                     </div>
                 </div>
                 <!-- <div class="loading">
