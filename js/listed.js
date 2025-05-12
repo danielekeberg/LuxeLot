@@ -1,4 +1,4 @@
-import { apiUrl, apiKey, auth } from './config.js';
+import { apiUrl, apiKey, auth, username } from './config.js';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('i');
@@ -11,7 +11,9 @@ async function fetchListing() {
             }
         });
         const data = await response.json();
-        console.log(data);
+        if(username === data.data.seller.name) {
+            document.getElementById('hamburger').style.display = 'block';
+        }
 
         if(!response.ok) {
             console.log(data);
@@ -31,6 +33,7 @@ async function fetchListing() {
         document.getElementById('endsAt').textContent = hasEnded ? `Winner: ${data.data.bids[(bidLength-1)].bidder.name}` : `Ends: ${date.toLocaleString()}`;
 
         const getUser = data.data.seller.name;
+        
         moreItems(getUser);
 
         if(!data.data.bids[bidLength-1]) {
@@ -41,8 +44,6 @@ async function fetchListing() {
         }
         
         document.getElementById('currentBids').textContent = bidLength;
-
-        
 
         document.getElementById('bidSubmit').addEventListener('click', () => {
             bid(data.data.id);
