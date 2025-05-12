@@ -4,15 +4,14 @@ async function createListing() {
     const now = new Date();
     const date = new Date(now.getTime() + 2 * 60000).toISOString();
 
-    // Date er satt til 5 minutter fra bruker trykker på knappen. Endre denne til 1 dag før innlevering.
+    // Date er satt til 2 minutter fra bruker trykker på knappen. Endre denne til 1 dag før innlevering.
     // Dette er for å teste ting uten å spamme ned alle listings
-
 
     const title = document.getElementById('itemTitle').value;
     const tags = ['LuxeLot'];
     const url = document.getElementById('itemImg').value;
     const desc = document.getElementById('itemDesc').value;
-    // const endsAt = new Date(date);
+
     const create = { 
         title: title,
         description: desc,
@@ -35,12 +34,10 @@ async function createListing() {
             },
             body: JSON.stringify(create)
         });
-        const data = await response.json();
         if(response.ok) {
-            console.log('Listing successfully created!');
-            console.log(data);
             window.location.href = `../listing/?i=${data.data.id}`
         } else {
+            const data = await response.json();
             console.error(data);
         }
     } catch(error) {
