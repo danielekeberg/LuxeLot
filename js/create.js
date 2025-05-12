@@ -2,14 +2,14 @@ import { auth, apiKey, apiUrl } from './config.js';
 
 async function createListing() {
     const now = new Date();
-    const date = new Date(now.getTime() + 5 * 60000).toISOString();
+    const date = new Date(now.getTime() + 2 * 60000).toISOString();
 
     // Date er satt til 5 minutter fra bruker trykker på knappen. Endre denne til 1 dag før innlevering.
     // Dette er for å teste ting uten å spamme ned alle listings
 
 
     const title = document.getElementById('itemTitle').value;
-    const tags = ['Test'];
+    const tags = ['LuxeLot'];
     const url = document.getElementById('itemImg').value;
     const desc = document.getElementById('itemDesc').value;
     // const endsAt = new Date(date);
@@ -41,7 +41,7 @@ async function createListing() {
             console.log(data);
             window.location.href = `../listing/?i=${data.data.id}`
         } else {
-            console.error(create);
+            console.error(data);
         }
     } catch(error) {
         console.error(error);
