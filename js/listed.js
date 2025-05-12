@@ -203,17 +203,98 @@ async function deleteListing() {
     }
 }
 
+async function edit() {
+    const title = document.getElementById('newTitle').value;
+    const desc = document.getElementById('newDesc').value;
+    const img = document.getElementById('newImgUrl').value;
+
+    const body = {
+        title: `${title}`,
+        description: `${desc}`,
+        media: [{
+            url: `${img}`,
+            alt: `${title}`
+        }]
+    };
+
+    try {
+        const response = await fetch(`${apiUrl}/auction/listings/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${auth}`,
+                'X-Noroff-API-Key': `${apiKey}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        })
+        if(!response.ok) {
+            const data = await response.json();
+            console.warn(data);
+        } else {
+            window.location.reload();
+        }
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+async function editListing() {
+    try {
+        const response = await fetch(`${apiUrl}/auction/listings/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${auth}`,
+                'X-Noroff-API-Key': `${apiKey}`,
+            }
+        })
+        const data = await response.json();
+        if(!response.ok) {
+            throw new Error(data)
+        } else {
+            console.log(data);
+            const d = document.createElement('div');
+            d.className = 'edit-profile';
+            d.innerHTML = `
+            <div class="edit-form">
+                <input type="text" placeholder="Title" id="newTitle">
+                <input type="text" placeholder="Description" id="newDesc">
+                <input type="text" placeholder="Image URL" id="newImgUrl">
+            </div>
+            <div class="edit-btn">
+                <button id="editProfile">Save changes</button>
+            </div>
+            `;
+            // document.getElementById('imgUrl').value = data.data.media[0].url;
+            
+            document.getElementById('editInput').appendChild(d);
+
+            document.getElementById('newTitle').value = data.data.title;
+            document.getElementById('newDesc').value = data.data.description;
+            document.getElementById('newImgUrl').value = data.data.media[0].url;
+
+            document.getElementById('editProfile').addEventListener('click', edit);
+        }
+    } catch(error) {
+        console.error(error);
+    }
+}
+
 function hamburger() {
     if(document.querySelector('.hamburger')) {
         return document.querySelector('.hamburger').remove();
     }
     const d = document.createElement('div');
     d.className = 'hamburger';
-    d.innerHTML = '<p id="delete">Delete</p>';
+    d.innerHTML = `
+    <p id="edit">Edit</p>
+    <p id="delete">Delete</p>
+    `;
     document.querySelector('.title').appendChild(d);
-    document.querySelector('.hamburger').addEventListener('click', () => {
+    document.getElementById('delete').addEventListener('click', () => {
         deleteListing();
-    })
+    });
+    document.getElementById('edit').addEventListener('click', () => {
+        editListing();
+    });
     
 }
 
