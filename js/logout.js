@@ -1,5 +1,4 @@
 function logout() {
-    console.log('rerer');
     localStorage.removeItem('isLoggedIn');
     window.location.reload();
 }
