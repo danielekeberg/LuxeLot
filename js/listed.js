@@ -10,43 +10,40 @@ async function fetchListing() {
                 'Authorization': `Bearer ${auth}`,
             }
         });
-
-        
-
         const data = await response.json();
-        const errors = data.errors;
-        if(errors) {
-            console.log('erroooor ');
+        console.log(data);
+
+        if(!response.ok) {
+            console.log(data);
             return;
         }
-        console.log(data);
         const bidLength = data.data.bids.length;
 
         const ending = data.data.endsAt;
         const date = new Date(ending)
+        const now = new Date();
+        const hasEnded = now > date;
 
         document.getElementById('title').textContent = data.data.title;
         document.getElementById('desc').textContent = data.data.description;
         document.getElementById('currentBid').textContent = data.data._count.bids;
         document.getElementById('itemImage').src = data.data.media[0].url;
-        document.getElementById('endsAt').textContent = date.toLocaleString();
+        document.getElementById('endsAt').textContent = hasEnded ? `Winner: ${data.data.bids[(bidLength-1)].bidder.name}` : `Ends: ${date.toLocaleString()}`;
+
+        const getUser = data.data.seller.name;
+        moreItems(getUser);
 
         if(!data.data.bids[bidLength-1]) {
-            console.log(data.data.bids)
-            console.log('Ingen bids')
             document.getElementById('currentBid').textContent = 'No bids';
 
         } else {
-            console.log(data.data.bids[bidLength-1])
-            console.log(bidLength);
             document.getElementById('currentBid').textContent = data.data.bids[bidLength-1].amount;
         }
         
         document.getElementById('currentBids').textContent = bidLength;
-        moreItems(data.data.seller.name)
 
-        const bidInput = document.getElementById('bidInput').value;
-        console.log(bidInput)
+        
+
         document.getElementById('bidSubmit').addEventListener('click', () => {
             bid(data.data.id);
             document.getElementById('currentBid').textContent = data.data.bids[bidLength-1].amount;
@@ -77,45 +74,35 @@ async function moreItems(name) {
         if(!response.ok) {
             console.log(data.errors[0].message)
         }
-        const items = data.data;
-        console.log(data);
-        items.forEach(item => {
+
+        const sorted = data.data.sort((b, a) => new Date(b.created) - new Date(a.created));
+        const lastThree = sorted.slice(0, 3);
+
+        const container = document.getElementById('moreItemsContainer');
+        container.innerHTML = '';
+
+        document.getElementById('moreItemsUser').textContent = name;
+        document.getElementById('moreItemsUser').href = `../profile/?p=${name}`;
+
+        lastThree.forEach(item => {
             const d = document.createElement('a');
-            d.className = 'aosdijasdo';
-            d.href = `./?i=${item.id}`
+            d.className = 'item';
+            d.href = `../listing/?i=${item.id}`;
             d.innerHTML = `
-            <h1>${item.title}</h1>
+            <div class="card">
+                 <img src="${item.media[0].url}">
+                 <div class="card-title">
+                    <h3>${item.title}</h3>
+                    <p>${item._count.bids} bids</p>
+                 </div>
+            </div>
             `;
-            document.getElementById('moreItems').appendChild(d);
+            document.getElementById('moreItemsContainer').appendChild(d);
         });
     } catch(error) {
         console.error(error);
     }
 }
-
-async function timeLeft() {
-    try {
-        const response = await fetch(`${apiUrl}/auction/listings/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${auth}`,
-            }
-        });
-        const data = await response.json();
-        const endTime = new Date(data.data.endsAt);
-        const now = new Date();
-        const diffsInMs = endTime - now;
-        const totalSeconds = Math.floor(diffsInMs / 1000);
-        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-        const minutes = String(Math.floor(totalSeconds / 3600) / 60).padStart(2, '0');
-        const seconds = String(totalSeconds % 60).padStart(2, '0');
-        document.getElementById('timeLeft').textContent = `${hours}:${minutes}:${seconds}`
-    } catch(err) {
-        console.error(err);
-    }
-}
-
-// timeLeft();
-// setInterval(timeLeft, 1000)
 
 async function bid(id) {
     const bidInput = Number(document.getElementById('bidInput').value);
@@ -129,12 +116,10 @@ async function bid(id) {
             },
             body: JSON.stringify({ amount: bidInput }),
         });
-        console.log(bidInput);
         const data = await response.json();
         const error = data.errors;
         if(!response.ok) {
             error.forEach(error => {
-                // console.log(error);
                 document.getElementById('error').style.opacity = 1;
                 document.getElementById('error').textContent = error.message;
                 setTimeout(() => {
@@ -204,20 +189,31 @@ async function deleteListing() {
                 'X-Noroff-API-Key': `${apiKey}`,
             }
         })
-        const data = await response.json();
-        if(!response.ok) {
-            console.log('Error deleting list');
-            console.error(data);
+        
+        if(response.ok) {
+            return window.location.href = '../';
         } else {
-            console.log('Success!');
+            const data = await response.json();
+            alert(data.errors[0].message);
+            return;
         }
     } catch(error) {
         console.error(error);
     }
 }
 
-document.body.addEventListener('keypress', (e) => {
-    if(e.key === 'd') {
-        deleteListing();
+function hamburger() {
+    if(document.querySelector('.hamburger')) {
+        return document.querySelector('.hamburger').remove();
     }
-})
+    const d = document.createElement('div');
+    d.className = 'hamburger';
+    d.innerHTML = '<p id="delete">Delete</p>';
+    document.querySelector('.title').appendChild(d);
+    document.querySelector('.hamburger').addEventListener('click', () => {
+        deleteListing();
+    })
+    
+}
+
+document.getElementById('hamburger').addEventListener('click', hamburger);
