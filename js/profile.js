@@ -1,4 +1,4 @@
-import { apiUrl, auth, apiKey } from './config.js';
+import { apiUrl, auth, apiKey, username } from './config.js';
 
 const params = new URLSearchParams(window.location.search);
 const user = params.get('p');
@@ -28,7 +28,9 @@ async function fetchProfile() {
         document.getElementById('pDesc').textContent = data.data.bio ? data.data.bio : 'This user does not have a BIO yet...';
         document.getElementById('totalCredits').textContent = data.data.credits;
 
-        console.log(data);
+        if(username != user) {
+            document.getElementById('details').style.display = 'none';
+        }
         
 
     } catch(error) {
@@ -74,9 +76,6 @@ async function listings() {
         const data = await response.json();
         const listings = data.data;
         const bidLength = listings.length;
-        const bid = listings
-        console.log(bidLength);
-        console.log(listings)
         listings.forEach(item => {
             const d = document.createElement('a');
             d.href = `../listing/?i=${item.id}`;
@@ -105,7 +104,6 @@ async function wins() {
         })
         const data = await response.json();
         const listings = data.data;
-        console.log(data);
 
         listings.forEach(item => {
             const d = document.createElement('a');
@@ -163,12 +161,6 @@ async function editProfile() {
     }
 }
 
-document.body.addEventListener('keypress', (e) => {
-    if(e.key === 't') {
-        editProfile();
-    }
-})
-
 document.getElementById('details').addEventListener('click', () => {
     const d = document.getElementById('q')
         d.innerHTML = `
@@ -189,8 +181,17 @@ document.getElementById('details').addEventListener('click', () => {
                 </div>
             </div>
         </div>
+        <div class="save">
+            <button id="saveChanges">Save changes</button>
+        </div>
         `;
 
+        document.getElementById('saveChanges').addEventListener('click', () => {
+            editProfile();
+            setTimeout(() => {
+                fetchProfile();
+            }, 10)
+        });
         const input = document.getElementById('avatarInput');
         const preview = document.getElementById('imagePlaceholder');
         input.addEventListener('input', () => {
