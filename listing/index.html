@@ -7,6 +7,7 @@
     <script type="module" src="../js/script.js" defer></script>
     <script type="module" src="../js/listed.js" defer></script>
     <script type="module" src="../js/credits.js" defer></script>
+    <script type="module" src="../js/logout.js" defer></script>
     <title>Document</title>
 </head>
 <body>
@@ -21,11 +22,9 @@
                 <input type="text" id="searchInput" placeholder="Search...">
                 <img src="../assets/search.svg">
             </div>
-            <div class="create">
-                <a href="../create/" class="create">
-                    <img src="../assets/create.svg">
-                </a>
-            </div>
+            <a href="../create/" class="create">
+                <img src="../assets/create.svg">
+            </a>
             <div class="user">
                 <div class="credits">
                     <img src="../assets/coin.svg">
@@ -40,30 +39,37 @@
     <main>
         <div class="container">
             <div id="listed">
-                <img id="itemImage" src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png">
-                <div class="en">
-                    <div class="to">
-                        <h1 id="title">Kul klokke!</h1>
-                        <div class="currentBid">
-                            <img src="../assets/coin.svg">
-                            <p id="currentBid">0</p>
+                <div class="test123">
+                    <img id="itemImage" src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png">
+                    <div class="en">
+                        <div class="to">
+                            <div class="title">
+                                <h1 id="title">Kul klokke!</h1>
+                                <h1 id="hamburger">&#8801;</h1>
+                            </div>
+                            <div class="currentBid">
+                                <img src="../assets/coin.svg">
+                                <p id="currentBid">0</p>
+                            </div>
+                            <p>Current bids: <span id="currentBids">0</span></p>
+                            <p id="endsAt"></p>
                         </div>
-                        <p><strong>Current bids: <span id="currentBids">0</span></strong></p>
-                        <p><strong>Ends: <span id="endsAt"></span></strong></p>
-
-                    </div>
-                    <div class="tre">
-                        <p id="desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, velit tempora! Adipisci obcaecati reprehenderit dicta at iure magnam totam nihil commodi, asperiores, aperiam cumque blanditiis nisi velit possimus dolor iusto!</p>
-                        <div class="bid">
-                            <input type="number" placeholder="Your bid" id="bidInput">
-                            <button id="bidSubmit">BID</button>
+                        <div class="tre">
+                            <p id="desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, velit tempora! Adipisci obcaecati reprehenderit dicta at iure magnam totam nihil commodi, asperiores, aperiam cumque blanditiis nisi velit possimus dolor iusto!</p>
+                            <div class="bid">
+                                <input type="number" placeholder="Your bid" id="bidInput">
+                                <button id="bidSubmit">BID</button>
+                            </div>
+                            <p id="error"></p>
                         </div>
-                        <p id="error"></p>
                     </div>
                 </div>
-                <!-- <div class="loading">
-                    <h1>LOADING</h1>
-                </div> -->
+                
+                <div class="display-more-items">
+                    <h3>More items by <a href="" id="moreItemsUser">user</a></h3>
+                    <div class="more-items" id="moreItemsContainer">
+                    </div>
+                </div>
             </div>
         </div>
     </main>
