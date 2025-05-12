@@ -661,19 +661,30 @@ input:disabled {
     display: none;
 }
 
+.hamburger p {
+    border: 1px solid #000;
+    width: 100px;
+    margin: 0;
+    background: #cbc5bd;
+    padding: 5px;
+}
+
+#edit,
+#delete {
+    margin: 0;
+}
+
+.hamburger p:hover {
+    background: #ada397;
+}
+
 .hamburger {
     position: absolute;
     right: 0;
     top: 60px;
-    border: 1px solid #000;
     width: 100px;
     text-align: center;
-    background: #cbc5bd;
     cursor: pointer;
-}
-
-.hamburger:hover {
-    background: #ada397;
 }
 
 .hamburger:active {
@@ -735,4 +746,36 @@ input:disabled {
 
 .save button:active {
     background: #796f6c;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bdbdbd;
+    margin: 5px;
+}
+
+.edit-form input:focus {
+    outline: none;
+}
+
+.edit-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px;
+}
+
+.edit-profile button {
+    color: #f4f3f2;
+    font-weight: 600;
+    background: #473E3C;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
 }
