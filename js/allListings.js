@@ -2,10 +2,9 @@ import { apiUrl } from './config.js';
 
 async function fetchListings() {
     try {
-        const response = await fetch(`${apiUrl}/auction/listings?_tag=Test&_active=true`);
+        const response = await fetch(`${apiUrl}/auction/listings?_tag=LuxeLot&_active=true`);
         const data = await response.json();
         const item = data.data;
-        console.log(data);
         if(!response.ok) {
             data.forEach(data => {
                 console.log(data.errors)
@@ -24,7 +23,6 @@ async function fetchListings() {
                      </div>
                 </div>
                 `;
-    
                 document.getElementById('listings').appendChild(d);
             })
         }
@@ -34,8 +32,3 @@ async function fetchListings() {
 }
 
 fetchListings();
-// document.body.addEventListener('keypress', (e) => {
-//     if(e.key === 'Enter') {
-//         fetchListings();
-//     }
-// });
