@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <script type="module" src="../js/credits.js" defer></script>
     <script type="module" src="../js/create.js" defer></script>
+    <script type="module" src="../js/script.js" defer></script>
     <title>Document</title>
 </head>
 <body>
@@ -20,11 +21,9 @@
                 <input type="text" id="searchInput" placeholder="Search...">
                 <img src="../assets/search.svg">
             </div>
-            <div class="create">
-                <a href="./" class="create">
-                    <img src="../assets/create.svg">
-                </a>
-            </div>
+            <a href="../create/" class="create">
+                <img src="../assets/create.svg">
+            </a>
             <div class="user">
                 <div class="credits">
                     <img src="../assets/coin.svg">
@@ -44,8 +43,8 @@
                     <h3 id="placeholderText">Preview</h3>
                 </div>
                 <div class="create-field">
-                    <input type="text" placeholder="Title" id="itemTitle">
-                    <input type="text" placeholder="Description" id="itemDesc">
+                    <input type="text" placeholder="Title" id="itemTitle" maxlength="280">
+                    <input type="text" placeholder="Description" id="itemDesc" maxlength="280">
                     <input type="text" placeholder="Image URL" id="itemImg">
                     <div class="create-btn">
                         <button id="createListing">Create</button>
