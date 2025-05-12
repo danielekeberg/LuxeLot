@@ -3,6 +3,10 @@ body {
     color: #272221;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 header {
     display: flex;
     justify-content: center;
@@ -124,6 +128,7 @@ main {
     width: 1200px;
     gap: 20px;
     margin-top: 20px;
+    margin-bottom: 100px;
 }
 
 .category {
@@ -161,6 +166,7 @@ main {
 
 .card h3 {
     width: 80%;
+    font-size: 16px;
 }
 
 .card-title {
@@ -168,6 +174,10 @@ main {
     justify-content: space-between;
     align-items: center;
     margin: 0 20px;
+}
+
+.card-title p {
+    font-weight: 600;
 }
 
 .listings {
@@ -315,6 +325,7 @@ main {
     position: absolute;
     left: 20px;
     top: 20px;
+    background: #f4f3f2;
 }
 
 .profile-container .profile-main {
@@ -336,6 +347,11 @@ main {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin: 0 20px;
+}
+
+.profile-stats p {
+    font-weight: 600;
 }
 
 #profileInc {
@@ -348,6 +364,12 @@ main {
 
 #listed {
     display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.test123 {
+    display: flex;
     gap: 100px;
 }
 
@@ -357,6 +379,11 @@ main {
     overflow: none;
     object-fit: cover;
     border: 1px solid #bdbdbd;
+    
+}
+
+#itemImage {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
 }
 
 .loading {
@@ -377,6 +404,10 @@ main {
     display: flex;
     flex-direction: column;
     gap: 50px;
+}
+
+.to p {
+    font-weight: 600;
 }
 
 .tre {
@@ -459,6 +490,10 @@ main {
 .create-container .create-field input {
     padding: 10px;
     width: 400px;
+}
+
+.create-container .create-field input:focus {
+    outline: none;
 }
 
 .create-btn {
@@ -601,4 +636,99 @@ input:disabled {
 #displayListings .card,
 #displayWins .card {
     margin: 5px;
+}
+
+#credits {
+    font-weight: 600;
+}
+
+.credits {
+    cursor: pointer;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.title h1 {
+    margin: 25px 0;
+}
+
+.hamburger {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    border: 1px solid #000;
+    width: 100px;
+    text-align: center;
+    background: #cbc5bd;
+    cursor: pointer;
+}
+
+.hamburger:hover {
+    background: #ada397;
+}
+
+.hamburger:active {
+    background: #e4e1dd;
+}
+
+.hamburger p {
+    margin: 5px;
+    color: #272221;
+}
+
+.title h1 {
+    cursor: pointer;
+}
+
+.more-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid #00000070;
+}
+
+.more-items .card {
+    margin: 10px;
+}
+
+.more-items a {
+    text-decoration: none;
+    color: #272221;
+}
+
+.display-more-items a {
+    color: #272221;
+}
+
+.more-items img {
+    height: 250px !important;
+    width: 250px !important;
+}
+
+.save {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 10px 10px;
+}
+
+.save button {
+    color: #f4f3f2;
+    font-weight: 600;
+    background: #473E3C;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+}
+
+.save button:hover {
+    background: #584e4b;
+}
+
+.save button:active {
+    background: #796f6c;
 }
