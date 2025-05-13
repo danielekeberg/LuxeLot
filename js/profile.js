@@ -75,7 +75,6 @@ async function listings() {
         })
         const data = await response.json();
         const listings = data.data;
-        const bidLength = listings.length;
         listings.forEach(item => {
             const d = document.createElement('a');
             d.href = `../listing/?i=${item.id}`;
@@ -118,6 +117,22 @@ async function wins() {
             `;
         document.getElementById('displayWins').appendChild(d);
         })
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+async function history() {
+    try {
+        const response = await fetch(`${apiUrl}/auction/profiles/${user}`, {
+            headers: {
+                'Authorization': `Bearer ${auth}`,
+                'X-Noroff-API-Key': `${apiKey}`,
+            }
+        })
+        const data = await response.json();
+        console.log(data);
+
     } catch(error) {
         console.error(error);
     }
@@ -226,4 +241,15 @@ document.getElementById('wins').addEventListener('click', () => {
         </div>
         `;
     wins();
+})
+document.getElementById('history').addEventListener('click', () => {
+    const d = document.getElementById('q')
+        d.innerHTML = `
+        <div class="profile-form">
+            <h1>History</h1>
+            <div id="displayWins">
+            </div>
+        </div>
+        `;
+        history();
 })
