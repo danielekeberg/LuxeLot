@@ -779,3 +779,33 @@ input:disabled {
     border: 1px solid #bdbdbd;
     border-radius: 5px;
 }
+
+.bidder {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    font-weight: 600;
+}
+
+.bidder a {
+    font-weight: 600;
+    color: #272221;
+}
+
+.bidder .amount {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 50px;
+    
+}
+
+.bidder #bidder {
+    width: 150px;
+}
+
+.bidder .amount img {
+    height: 20px !important;
+    width: 20px !important;
+    border: none !important;
+}
