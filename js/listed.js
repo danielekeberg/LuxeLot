@@ -11,15 +11,18 @@ async function fetchListing() {
             }
         });
         const data = await response.json();
+        console.log(data);
         if(username === data.data.seller.name) {
             document.getElementById('hamburger').style.display = 'block';
+            document.querySelector('.bid').style.display = 'none';
         }
 
         if(!response.ok) {
             console.log(data);
             return;
-        }
+        } 
         const bidLength = data.data.bids.length;
+        const allBids = data.data.bids;
 
         const ending = data.data.endsAt;
         const date = new Date(ending)
@@ -33,14 +36,27 @@ async function fetchListing() {
         document.getElementById('endsAt').textContent = hasEnded ? `Winner: ${data.data.bids[(bidLength-1)].bidder.name}` : `Ends: ${date.toLocaleString()}`;
 
         const getUser = data.data.seller.name;
-        
         moreItems(getUser);
 
         if(!data.data.bids[bidLength-1]) {
             document.getElementById('currentBid').textContent = 'No bids';
-
         } else {
             document.getElementById('currentBid').textContent = data.data.bids[bidLength-1].amount;
+            allBids.forEach(bid => {
+                const bidTime = new Date(bid.created)
+                const d = document.createElement('div');
+                d.className = 'bidder';
+                d.innerHTML = `
+                    <div class="amount">
+                        <img src="../assets/coin.svg">
+                        <p>${bid.amount}</p>
+                    </div>
+                    <a href="../profile/?p=${bid.bidder.name}" id="bidder">${bid.bidder.name}</a>
+                    <p>${bidTime.toLocaleString('en-GB', {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</p>
+                    `;
+
+                document.getElementById('bids').appendChild(d);
+            })
         }
         
         document.getElementById('currentBids').textContent = bidLength;
@@ -129,13 +145,10 @@ async function bid(id) {
             })
             console.log(error);
         } else {
-            console.log('Your bid of ' + bidInput + ' credits were accepted!');
             document.getElementById('bidInput').textContent = '';
             updateBalance();
             updateBids();
         }
-
-        console.log(data);
     } catch (error) {
         console.error(error);
     }
@@ -153,7 +166,6 @@ async function updateBids() {
         }
         const data = await response.json();
         const bidLength = data.data.bids.length;
-        console.log(data.data.bids[(bidLength-1)].amount);
         document.getElementById('currentBid').textContent = data.data.bids[(bidLength-1)].amount;
         document.getElementById('currentBids').textContent = bidLength;
     } catch(error) {
@@ -250,7 +262,6 @@ async function editListing() {
         if(!response.ok) {
             throw new Error(data)
         } else {
-            console.log(data);
             const d = document.createElement('div');
             d.className = 'edit-profile';
             d.innerHTML = `
@@ -263,7 +274,6 @@ async function editListing() {
                 <button id="editProfile">Save changes</button>
             </div>
             `;
-            // document.getElementById('imgUrl').value = data.data.media[0].url;
             
             document.getElementById('editInput').appendChild(d);
 
@@ -289,10 +299,16 @@ function hamburger() {
     <p id="delete">Delete</p>
     `;
     document.querySelector('.title').appendChild(d);
+
+    
+
     document.getElementById('delete').addEventListener('click', () => {
         deleteListing();
     });
     document.getElementById('edit').addEventListener('click', () => {
+        if(document.querySelector('.edit-profile')) {
+            return;
+        }
         editListing();
     });
     
