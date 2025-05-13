@@ -2,7 +2,7 @@ import { auth, apiKey, apiUrl } from './config.js';
 
 async function createListing() {
     const now = new Date();
-    const date = new Date(now.getTime() + 2 * 60000).toISOString();
+    const date = new Date(now.getTime() + (24 * 60) * 60000).toISOString();
 
     // Date er satt til 2 minutter fra bruker trykker på knappen. Endre denne til 1 dag før innlevering.
     // Dette er for å teste ting uten å spamme ned alle listings
@@ -34,11 +34,28 @@ async function createListing() {
             },
             body: JSON.stringify(create)
         });
+        const data = await response.json();
         if(response.ok) {
             window.location.href = `../listing/?i=${data.data.id}`
         } else {
-            const data = await response.json();
-            console.error(data);
+            const error = data.errors;
+            if(document.querySelector('.errorMsg')) {
+                return;
+            }
+            document.querySelector('.error').style.opacity = 1;
+            error.forEach(errorMsg => {
+                console.log(errorMsg.message);
+                const d = document.createElement('div');
+                d.className = 'errorMsg';
+                d.innerHTML = `${errorMsg.message}`;
+                document.querySelector('.error').appendChild(d);
+                setTimeout(() => {
+                    document.querySelector('.error').style.opacity = 0;
+                    setTimeout(() => {
+                        document.querySelector('.error').removeChild(d);
+                    }, 300);
+                }, 3000);
+            });
         }
     } catch(error) {
         console.error(error);
