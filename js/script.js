@@ -21,6 +21,7 @@ async function hoverTitle() {
         });
         const data = await response.json();
         document.querySelector('.credits').title = `${username} has ${data.data.credits} credits!`;
+        document.getElementById('logout').title = `Logout!`;
     } catch(error) {
         console.error(error);
     }
