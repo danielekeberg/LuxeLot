@@ -145,7 +145,7 @@ async function bid(id) {
             })
             console.log(error);
         } else {
-            document.getElementById('bidInput').textContent = '';
+            document.getElementById('bidInput').value = '';
             updateBalance();
             updateBids();
         }
