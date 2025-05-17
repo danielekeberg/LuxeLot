@@ -657,9 +657,9 @@ input:disabled {
     margin: 25px 0;
 }
 
-#hamburger {
+/* #hamburger {
     display: none;
-}
+} */
 
 .hamburger p {
     border: 1px solid #000;
@@ -808,4 +808,82 @@ input:disabled {
     height: 20px !important;
     width: 20px !important;
     border: none !important;
+}
+
+@media (max-width: 414px) {
+    .header {
+        margin: 0 20px;
+    }
+
+    .header #credits {
+        width: 100%;
+    }
+
+    .header #logout {
+        display: none;
+    }
+
+    .category {
+        display: none;
+    }
+
+    .listings {
+        margin: 0 auto;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+
+    .header .search img {
+        display: none;
+    }
+
+    .header .search input {
+        width: 70%;
+        margin: 0 10px;
+    }
+
+    .header .create {
+        display: none;
+    }
+
+    .header #username {
+        display: none;
+    }
+
+    .test123 {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .test123 #itemImage {
+        height: 300px;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .test123 .title {
+        display: flex;
+        justify-content: center;
+        gap: 30%;
+        margin: 0 auto;
+    }
+
+    .test123 .to p {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .test123 .to .currentBid {
+        display: flex;
+        justify-content: center;
+    }
+
+    .test123 .tre #desc {
+        display: none;
+    }
+
+    .test123 .bid {
+        display: none;
+    }
 }
